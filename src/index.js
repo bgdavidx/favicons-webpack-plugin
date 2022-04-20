@@ -129,6 +129,13 @@ class FaviconsWebpackPlugin {
         if (typeof this.options.manifest === 'string') {
           compilation.fileDependencies.add(this.options.manifest);
         }
+        
+        if (typeof this.onCompilationReady === 'function') {
+          faviconCompilation
+                .then(faviconCompilation => {
+            this.onCompilationReady(faviconCompilation)
+          })
+        }
 
         // Hook into the html-webpack-plugin processing and add the html
         const HtmlWebpackPlugin = compiler.options.plugins
